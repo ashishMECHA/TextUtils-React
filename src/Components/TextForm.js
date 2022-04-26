@@ -7,26 +7,37 @@ export default function TextForm(props) {
         //console.log("Uppercase was clicked" + text);
         let newText = text.toUpperCase();
         setText(newText)
+        props.showAlert("Converted to uppercase!", "success");
     }
     const handleLowClick = ()=>{
         
         let newText = text.toLowerCase();
         setText(newText)
+        props.showAlert("Converted to lowercase!", "success");
+    }
+    const handleClearClick = ()=>{
+        let newText='';
+        setText(newText);
+        props.showAlert("Text Cleared!", "success");
     }
     const handleOnChange = (event)=>{
         //console.log("On Change");
         setText(event.target.value);
+        
    
     }
     const handleCopy = () => {
         console.log("I am Copy");
         var text = document.getElementById("myBox");
-        text.Select();
+        text.select();
+        text.setSelectionRange(0,9999);
         navigator.clipboard.writeText(text.value);
+        props.showAlert("Text copied!", "success");
     }
     const handleExtraSpaces = () => {
         let newText = text.split(/[ ]+/);
         setText(newText.join(" "))
+        props.showAlert("ExtraSpaces removed", "success");
     }
     const [text, setText] = useState('Enter text here');
    
@@ -41,6 +52,7 @@ export default function TextForm(props) {
         </div>
         <button className="btn btn-primary mx-2"onClick={handleUpClick}>Convert to UpperCase</button>
         <button className="btn btn-primary mx-2"onClick={handleLowClick}>Convert to LowerCase</button>
+        <button className="btn btn-primary mx-2"onClick={handleClearClick}>Clear Text</button>
         <button className="btn btn-primary mx-2"onClick={handleCopy}>Copy Text</button>
         <button className="btn btn-primary mx-2"onClick={handleExtraSpaces}>Remove Extra Spaces</button>
         </div>
