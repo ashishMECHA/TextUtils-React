@@ -1,8 +1,14 @@
 import './App.css';
 import Navbar from './Components/Navbar';
 import TextForm from './Components/TextForm';
+import About from './Components/About';
 import React, { useState } from 'react';
 import Alert from './Components/Alert';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 
 function App() {
@@ -33,11 +39,18 @@ function App() {
   
   return (
     <>
+      <BrowserRouter>
       <Navbar title = "TextUtils" aboutText="About" mode={mode} toggleMode={toggleMode} /> 
       <Alert alert = {alert}/>
       <div className="container my-3"> 
-      <TextForm showAlert={showAlert} heading="Enter text here to analyze" mode={mode}/>
+      <Routes>
+          <Route exact path="/about" element={<About/>}>
+            </Route>
+          <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Enter text here to analyze" mode={mode}/>}> 
+          </Route>       
+        </Routes>
       </div>  
+      </BrowserRouter>
     </>
     
   );
